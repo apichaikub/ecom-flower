@@ -1,0 +1,43 @@
+
+version: '3'
+
+services:
+    
+    webserver:
+        image: nginx:latest
+        ports:
+            - 80:80
+        volumes:
+            - ./services/service-product:/var/www/service-product
+            - ./services/service-cart:/var/www/service-cart
+            - ./services/service-order:/var/www/service-order
+            - ./services/service-payment:/var/www/service-payment
+            - ./docker/nginx/sites:/etc/nginx/conf.d
+            
+    service-product:
+        build:
+          context: ./services/service-product
+          dockerfile: Dockerfile
+        volumes:
+            - ./services/service-product:/var/www/service-product
+
+    service-cart:
+        build:
+            context: ./services/service-cart
+            dockerfile: Dockerfile
+        volumes:
+            - ./services/service-cart:/var/www/service-cart
+
+    service-order:
+        build:
+            context: ./services/service-order
+            dockerfile: Dockerfile
+        volumes:
+            - ./services/service-order:/var/www/service-order
+
+    service-payment:
+        build:
+            context: ./services/service-payment
+            dockerfile: Dockerfile
+        volumes:
+            - ./services/service-payment:/var/www/service-payment
